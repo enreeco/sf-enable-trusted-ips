@@ -1,0 +1,53 @@
+<!--
+Author: Enrico Murru (http://enree.co)
+Description: http://blog.enree.co/2015/08/salesforce-revamp-enable-all-trusted-ip.html
+Repository:
+-->
+<apex:page title="Enable All Trusted IPs">
+    <script type="text/javascript">
+    /* This piece of code has been taken from http://raydehler.com/cloud/clod/enable-all-trusted-ip-ranges-for-a-salesforce-org.html */
+    var startingPoint = 0;
+    var IP_MAX = 255;
+    function loadIframes() {    
+        var a = startingPoint;    
+        var docHTML = "<table class=\"list\" cellspacing=\"0\" border=\"0\" cellpadding=\"4\">";    
+        docHTML += "<tr class=\"headerRow\">";    
+        docHTML += "<th>IP Start</th>";    
+        docHTML += "<th>IP End</th>";    
+        docHTML += "<th></th>";    
+        docHTML += "</tr>";    
+        while (a<=IP_MAX) {        
+            docHTML += "<tr>";                
+            docHTML += "<td>"+a+".0.0.0</td>";        
+            docHTML += "<td>"+(a+1)+".255.255.255</td>";        
+            docHTML += "<td><a target=\"_blank\" href=\"/05G/e?IpStartAddress="+a+".0.0.0&IpEndAddress="+(a+1)+".255.255.255&retURL="+encodeURIComponent('/05G')+"\">Click to load range</a></td>";        
+            docHTML += "</tr>";        
+            a = a+2;    
+        }    
+        docHTML += "</table>";    
+        document.getElementById("output").innerHTML = docHTML;
+    }
+    
+    </script>
+    <apex:sectionHeader title="Enable All Trusted IPs" />
+    
+    <apex:pageBlock >
+        <p>
+            Due to limitations on home page components with javascript code introduced with Summer '15 release, 
+            the (really usefull) <a target="_blank" href="http://raydehler.com/cloud/clod/enable-all-trusted-ip-ranges-for-a-salesforce-org.html">Enable All Trusted IP Ranges for a Salesforce Org</a>
+            package does not work anymore.
+        </p>
+        <p>
+            This is a way to help developers to load trusted range IPs, faster than writing all ranges by hand.
+        </p>
+        <p>
+            For any information feel free to <a href="http://enree.co" target="_blank">contact me</a>.
+        </p>
+        <p>
+            <b>Click on a link to load the "Network Access" editing page with a precompiled range: then hit "Save" to add the range.</b>
+        </p>
+        <br/><br/>
+        <div id="output"></div>
+        <script>loadIframes();</script>
+    </apex:pageBlock>
+</apex:page>
